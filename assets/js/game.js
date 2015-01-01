@@ -2,6 +2,9 @@ function aSpaceOdyssey() {
     /*******************************************************************************************************************
      * CREATE EVENT
      *******************************************************************************************************************/
+    var roomWidth = 800,
+        roomHeight = 640;
+
     function SpaceShip(x, y, width, height, direction, scaleX, scaleY) {
         this.x = x;
         this.y = y;
@@ -44,12 +47,12 @@ function aSpaceOdyssey() {
     };
 
     SpaceShip.prototype.rotate = function () {
-        this.rotation = Math.atan2(game.cursor.y - this.y, game.cursor.x - this.x);
+        this.rotation = Math.atan2(game.cursor.y - this.y - this.height / 2, game.cursor.x - this.x - this.width / 2);
     };
 
     SpaceShip.prototype.updateDirection = function (referencePointX, referencePointY) {
         if (game.SpaceShip.flame)
-            this.direction = Math.atan2(referencePointY - this.y, referencePointX - this.x);
+            this.direction = Math.atan2(referencePointY - this.y - this.height / 2, referencePointX - this.x - this.width / 2);
     };
 
     SpaceShip.prototype.go = function (evt) {
@@ -63,7 +66,7 @@ function aSpaceOdyssey() {
 
 
     SpaceShip.prototype.updatePosition = function () {
-        if (window.utils.getDistance(this.x, this.y, game.cursor.x, game.cursor.y) > this.width / 2) {
+        if (window.utils.getDistance(this.x + this.width / 2, this.y + this.height / 2, game.cursor.x, game.cursor.y) > this.width / 2) {
             var degrees = this.direction * 180 / Math.PI;
             this.x += this.speed * Math.cos(degrees * Math.PI / 180);
             this.y += this.speed * Math.sin(degrees * Math.PI / 180);
@@ -109,15 +112,15 @@ function aSpaceOdyssey() {
     };
 
     var canvasContainer = window.utils.createAppendElement("div", "canvas-container", document.body);
-    canvasContainer.style.width = 800 + "px";
-    canvasContainer.style.height = 640 + "px";
+    canvasContainer.style.width = roomWidth + "px";
+    canvasContainer.style.height = roomHeight + "px";
 
     window.game = {
         // canvas a livello 0
-        backgroundCanvas: window.utils.createAppendCanvas("background", 800, 640, canvasContainer),
+        backgroundCanvas: window.utils.createAppendCanvas("background", roomWidth, roomHeight, canvasContainer),
         // canvas a livello 1
-        foregroundCanvas: window.utils.createAppendCanvas("foreground", 800, 640, canvasContainer),
-        panelCanvas: window.utils.createAppendCanvas("panel", 800, 100, canvasContainer),
+        foregroundCanvas: window.utils.createAppendCanvas("foreground", roomWidth, roomHeight, canvasContainer),
+        panelCanvas: window.utils.createAppendCanvas("panel", roomWidth, 100, canvasContainer),
         enviroment: {
             gravity: 1
         }
@@ -247,8 +250,6 @@ function aSpaceOdyssey() {
         window.requestAnimationFrame(drawEvent);
 
         game.backgroundContext.clearRect(0, 0, game.backgroundCanvas.width, game.backgroundCanvas.height);
-        /*        for (var i = 0; i < game.stars.array.length; i++)
-         game.stars.drawCircle(game.backgroundContext, game.stars.array[i]);*/
 
         game.stars.drawCircles(game.backgroundContext);
         game.backgroundContext.drawImage(game.panelCanvas, 0, 0);
