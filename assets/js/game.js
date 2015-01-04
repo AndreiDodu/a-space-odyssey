@@ -31,8 +31,8 @@ function aSpaceOdyssey() {
         this.scaleX = scaleX;
         this.scaleY = scaleY;
 
-        this.fuel = 100;
-        this.fuelMax = 100;
+        this.fuel = 300;
+        this.fuelMax = 300;
         this.fuelDec = 0.5;
 
         this.lives = 5;
