@@ -2,19 +2,24 @@ function aSpaceOdyssey() {
     /*******************************************************************************************************************
      * CREATE EVENT
      *******************************************************************************************************************/
+    /**
+     * Ritorna la dimensione della finestra (larhezza ed altezza).
+     * @returns {{w: (Number|number), h: (Number|number)}}
+     */
     function getClientWH() {
         var w = window,
             d = document,
             e = d.documentElement,
-            g = d.getElementsByTagName('body')[0],
-            x = w.innerWidth || e.clientWidth || g.clientWidth,
-            y = w.innerHeight || e.clientHeight || g.clientHeight;
-        return {w: x, h: y};
+            g = d.getElementsByTagName('body')[0];
+        return {
+            w: w.innerWidth || e.clientWidth || g.clientWidth,
+            h: w.innerHeight || e.clientHeight || g.clientHeight
+        };
     }
 
-    var tmp = getClientWH();
-    var roomWidth = tmp.w,//800,
-        roomHeight = tmp.h;//640;
+    var roomWH = getClientWH();
+    var roomWidth = roomWH.w,//800,
+        roomHeight = roomWH.h;//640;
 
     function SpaceShip(x, y, width, height, direction, scaleX, scaleY) {
         this.x = x;
