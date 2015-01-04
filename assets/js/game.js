@@ -2,8 +2,19 @@ function aSpaceOdyssey() {
     /*******************************************************************************************************************
      * CREATE EVENT
      *******************************************************************************************************************/
-    var roomWidth = 800,
-        roomHeight = 640;
+    function getClientWH() {
+        var w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.getElementsByTagName('body')[0],
+            x = w.innerWidth || e.clientWidth || g.clientWidth,
+            y = w.innerHeight || e.clientHeight || g.clientHeight;
+        return {w: x, h: y};
+    }
+
+    var tmp = getClientWH();
+    var roomWidth = tmp.x,//800
+        roomHeight = tmp.y;//640;
 
     function SpaceShip(x, y, width, height, direction, scaleX, scaleY) {
         this.x = x;
@@ -30,7 +41,7 @@ function aSpaceOdyssey() {
 
         this.spaceShipCanvas = document.createElement("canvas");
         this.spaceShipCanvas.id = "spaceShipCanvas";
-        this.spaceShipCanvas.textContent = "Il tuo browser non ";
+        this.spaceShipCanvas.textContent = "No canvas, no party.";
         this.spaceShipCanvas.width = width;
         this.spaceShipCanvas.height = height;
         this.spaceShipContext = this.spaceShipCanvas.getContext("2d");
@@ -38,7 +49,7 @@ function aSpaceOdyssey() {
         this.spaceShipSprite.src = "./assets/img/rocket.png";
         this.flameImage = new Image();
         this.flameImage.src = "./assets/img/flare.png";
-    };
+    }
 
     SpaceShip.prototype.updateLivesString = function () {
         this.livesString = "";
@@ -257,7 +268,7 @@ function aSpaceOdyssey() {
         game.foregroundContext.clearRect(0, 0, game.foregroundCanvas.width, game.foregroundCanvas.height);
         game.SpaceShip.draw(game.foregroundContext);
     }());
-};
+}
 
 if (typeof window.onload != 'function') {
     window.onload = aSpaceOdyssey;
