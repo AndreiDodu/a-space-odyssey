@@ -13,8 +13,8 @@ function aSpaceOdyssey() {
     }
 
     var tmp = getClientWH();
-    var roomWidth = tmp.x,//800,
-        roomHeight = tmp.y;//640;
+    var roomWidth = tmp.w,//800,
+        roomHeight = tmp.h;//640;
 
     function SpaceShip(x, y, width, height, direction, scaleX, scaleY) {
         this.x = x;
